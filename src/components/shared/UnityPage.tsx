@@ -445,22 +445,26 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                 >
                   {/* Film roll frame container */}
                   <div className="relative bg-black shadow-2xl" style={{ width: '280px', height: '200px' }}>
-                    {/* Sprocket holes top */}
-                    <div className="absolute top-0 left-0 right-0 h-3 bg-black flex justify-around items-center px-2">
+                    {/* Sprocket holes top - WHITE, larger (h-5) */}
+                    <div className="absolute top-0 left-0 right-0 h-5 bg-black flex justify-around items-center px-2">
                       {Array.from({ length: 14 }).map((_, i) => (
-                        <div key={i} className="w-2 h-2 bg-gray-900 rounded-sm" />
+                        <div key={i} className="w-2 h-2 bg-white rounded-sm" />
                       ))}
                     </div>
 
-                    {/* Sprocket holes bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 h-3 bg-black flex justify-around items-center px-2">
+                    {/* Sprocket holes bottom - WHITE, larger (h-5) */}
+                    <div className="absolute bottom-0 left-0 right-0 h-5 bg-black flex justify-around items-center px-2">
                       {Array.from({ length: 14 }).map((_, i) => (
-                        <div key={i} className="w-2 h-2 bg-gray-900 rounded-sm" />
+                        <div key={i} className="w-2 h-2 bg-white rounded-sm" />
                       ))}
                     </div>
 
-                    {/* Video container - inset from sprocket holes */}
-                    <div className="absolute top-3 bottom-3 left-0 right-0 bg-black overflow-hidden">
+                    {/* Side borders - thin black frames on left and right */}
+                    <div className="absolute top-5 bottom-5 left-0 w-1 bg-black" />
+                    <div className="absolute top-5 bottom-5 right-0 w-1 bg-black" />
+
+                    {/* Video container - inset from sprocket holes and side borders */}
+                    <div className="absolute top-5 bottom-5 left-1 right-1 bg-black overflow-hidden">
                       <video
                         src={video.src}
                         poster={video.poster}
@@ -492,11 +496,6 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                           <Play size={28} className="fill-white text-white ml-1" />
                         </motion.div>
                       </div>
-                    </div>
-
-                    {/* Film frame number */}
-                    <div className="absolute bottom-4 left-2 text-white/70 text-xs font-mono bg-black/80 px-2 py-0.5 rounded z-20">
-                      #{video.id.toString().padStart(2, '0')}
                     </div>
                   </div>
                 </motion.div>
