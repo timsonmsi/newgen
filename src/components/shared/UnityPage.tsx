@@ -455,11 +455,15 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                     </div>
 
                     {/* Video area (inside film frame) - sharp corners */}
-                    <div className="absolute inset-6 bg-black overflow-hidden relative">
+                    <div className="absolute inset-6 bg-black overflow-hidden relative flex items-center justify-center">
                       {/* Video preview (muted, looping, autoplay) */}
                       <video
                         src={video.src}
-                        className="w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full"
+                        style={{ 
+                          objectFit: 'cover',
+                          objectPosition: 'center',
+                        }}
                         muted
                         loop
                         playsInline
@@ -467,7 +471,6 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         preload="metadata"
                         poster={`data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="280" height="200"><rect fill="%231a1a1a" width="280" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23666" font-size="48">🎬</text></svg>`}
                         onLoadedData={() => handleVideoLoaded(video.id)}
-                        style={{ width: '100%', height: '100%' }}
                       />
 
                       {/* Loading indicator - hide when loaded */}
