@@ -53,6 +53,9 @@ export const VIDEOS = [
   { id: 13, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542560/newgen-videos/newgen/IMG_8351.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542560/newgen-videos/newgen/IMG_8351.jpg", rotation: 4 },
   { id: 14, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542562/newgen-videos/newgen/IMG_8352.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542562/newgen-videos/newgen/IMG_8352.jpg", rotation: -14 },
   { id: 15, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542563/newgen-videos/newgen/IMG_8542.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542563/newgen-videos/newgen/IMG_8542.jpg", rotation: 8 },
+  { id: 16, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772543398/newgen-videos/v5legsdbwrnwaovmbkbd.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772543398/newgen-videos/v5legsdbwrnwaovmbkbd.jpg", rotation: 12 },
+  { id: 17, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772543407/newgen-videos/fybgmwm5lxna242cmcjb.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772543407/newgen-videos/fybgmwm5lxna242cmcjb.jpg", rotation: -5 },
+  { id: 18, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772543412/newgen-videos/aoir21nbt8nrv3rjod5z.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772543412/newgen-videos/aoir21nbt8nrv3rjod5z.jpg", rotation: 9 },
 ];
 
 export function UnityPage({ onBack }: { onBack: () => void }) {
