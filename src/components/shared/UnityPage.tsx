@@ -37,21 +37,21 @@ export const POLAROID_ROWS = [
 ];
 
 export const VIDEOS = [
-  { id: 1, src: "/videos/DJI_20240330191842_0045_D.mp4", rotation: 11 },
-  { id: 2, src: "/videos/DJI_20240330191842_0045_D_2.mp4", rotation: -8 },
-  { id: 3, src: "/videos/IMG_1710.MP4", rotation: 14 },
-  { id: 4, src: "/videos/IMG_1961.MOV", rotation: -5 },
-  { id: 5, src: "/videos/IMG_3179.MP4", rotation: 9 },
-  { id: 6, src: "/videos/IMG_3180.MP4", rotation: -13 },
-  { id: 7, src: "/videos/IMG_6853.MP4", rotation: 6 },
-  { id: 8, src: "/videos/IMG_8345.MOV", rotation: -10 },
-  { id: 9, src: "/videos/IMG_8346.MOV", rotation: 15 },
-  { id: 10, src: "/videos/IMG_8347.MOV", rotation: -3 },
-  { id: 11, src: "/videos/IMG_8348.MOV", rotation: 12 },
-  { id: 12, src: "/videos/IMG_8350.MOV", rotation: -7 },
-  { id: 13, src: "/videos/IMG_8351.MOV", rotation: 4 },
-  { id: 14, src: "/videos/IMG_8352.MOV", rotation: -14 },
-  { id: 15, src: "/videos/IMG_8542.MOV", rotation: 8 },
+  { id: 1, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/DJI_20240330191842_0045_D.mp4", rotation: 11 },
+  { id: 2, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/DJI_20240330191842_0045_D_2.mp4", rotation: -8 },
+  { id: 3, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_1710.MP4", rotation: 14 },
+  { id: 4, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_1961.MOV", rotation: -5 },
+  { id: 5, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_3179.MP4", rotation: 9 },
+  { id: 6, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_3180.MP4", rotation: -13 },
+  { id: 7, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_6853.MP4", rotation: 6 },
+  { id: 8, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_8345.MOV", rotation: -10 },
+  { id: 9, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_8346.MOV", rotation: 15 },
+  { id: 10, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_8347.MOV", rotation: -3 },
+  { id: 11, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_8348.MOV", rotation: 12 },
+  { id: 12, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_8350.MOV", rotation: -7 },
+  { id: 13, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_8351.MOV", rotation: 4 },
+  { id: 14, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_8352.MOV", rotation: -14 },
+  { id: 15, src: "https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/IMG_8542.MOV", rotation: 8 },
 ];
 
 export function UnityPage({ onBack }: { onBack: () => void }) {
