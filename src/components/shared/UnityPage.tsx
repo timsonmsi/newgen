@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { switchTrack } from "./MusicPlayer";
 import { Play, Pause, Volume2, VolumeX, X } from "lucide-react";
+import { memoryCache } from './PreloadAssets';
 
 const GIRLS = [
   { name: "Alyok",    color: "#ff007f", emoji: "💗" },
@@ -207,15 +208,24 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
               className="relative max-w-4xl max-h-[90vh] p-4"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={selectedPhoto}
-                alt="Memory"
-                width={1200}
-                height={1200}
-                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                quality={90}
-                priority
-              />
+              {/* Use cached image if available, otherwise load from URL */}
+              {memoryCache.has(selectedPhoto) ? (
+                <img
+                  src={memoryCache.get(selectedPhoto)}
+                  alt="Memory"
+                  className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                />
+              ) : (
+                <Image
+                  src={selectedPhoto}
+                  alt="Memory"
+                  width={1200}
+                  height={1200}
+                  className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                  quality={90}
+                  priority
+                />
+              )}
               <button
                 onClick={() => setSelectedPhoto(null)}
                 className="absolute top-6 right-6 text-white/80 hover:text-white text-4xl font-bold"
