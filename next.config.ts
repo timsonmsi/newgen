@@ -6,11 +6,9 @@ const nextConfig = {
     // optimizePackageImports: ['@splinetool/react-spline', '@splinetool/runtime'],
   },
   
-  // Optimize images - automatically serve WebP to supported browsers
+  // Optimize images - Next.js will auto-convert to WebP/AVIF on the fly
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    formats: ['image/webp'],
     minimumCacheTTL: 60,
   },
 };
