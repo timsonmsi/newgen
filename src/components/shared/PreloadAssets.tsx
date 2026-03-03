@@ -112,32 +112,11 @@ export function PreloadAssets() {
       });
     };
 
-    // STEP 7: Video previews start loading
+    // STEP 7: Video previews start loading (Cloudinary auto-optimizes)
     const step7_PreloadVideoPreviews = () => {
-      console.log('🎬 STEP 7: Video previews start loading...');
-      
-      const previewPromises = VIDEOS.map(video => {
-        return new Promise((resolve) => {
-          const videoEl = document.createElement('video');
-          videoEl.preload = 'metadata';  // Only load first frame, not full video
-          videoEl.src = video.src;
-          videoEl.muted = true;
-          videoEl.onloadeddata = () => {
-            console.log(`   ✅ Preview: ${video.src.split('/').pop()}`);
-            resolve(true);
-          };
-          videoEl.onerror = () => {
-            console.warn(`   ⚠️ Preview failed: ${video.src.split('/').pop()}`);
-            resolve(false);
-          };
-        });
-      });
-
-      Promise.all(previewPromises).then((results) => {
-        const success = results.filter(r => r).length;
-        console.log(`✅ STEP 8: ${success}/${VIDEOS.length} video previews loaded`);
-        console.log('🎉 All assets preloaded! (Videos stream on-demand)\n');
-      });
+      console.log('🎬 STEP 7: Video previews (Cloudinary CDN)...');
+      console.log('✅ Videos will stream on-demand from Cloudinary CDN');
+      console.log('🎉 All assets preloaded!\n');
     };
 
     // Start the sequence

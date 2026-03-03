@@ -38,21 +38,21 @@ export const POLAROID_ROWS = [
 ];
 
 export const VIDEOS = [
-  { id: 1, src: "/videos/DJI_20240330191842_0045_D.mp4", rotation: 11 },
-  { id: 2, src: "/videos/DJI_20240330191842_0045_D_2.mp4", rotation: -8 },
-  { id: 3, src: "/videos/IMG_1710.MP4", rotation: 14 },
-  { id: 4, src: "/videos/IMG_1961.MOV", rotation: -5 },
-  { id: 5, src: "/videos/IMG_3179.MP4", rotation: 9 },
-  { id: 6, src: "/videos/IMG_3180.MP4", rotation: -13 },
-  { id: 7, src: "/videos/IMG_6853.MP4", rotation: 6 },
-  { id: 8, src: "/videos/IMG_8345.MOV", rotation: -10 },
-  { id: 9, src: "/videos/IMG_8346.MOV", rotation: 15 },
-  { id: 10, src: "/videos/IMG_8347.MOV", rotation: -3 },
-  { id: 11, src: "/videos/IMG_8348.MOV", rotation: 12 },
-  { id: 12, src: "/videos/IMG_8350.MOV", rotation: -7 },
-  { id: 13, src: "/videos/IMG_8351.MOV", rotation: 4 },
-  { id: 14, src: "/videos/IMG_8352.MOV", rotation: -14 },
-  { id: 15, src: "/videos/IMG_8542.MOV", rotation: 8 },
+  { id: 1, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542534/newgen-videos/newgen/DJI_20240330191842_0045_D.mp4", rotation: 11 },
+  { id: 2, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542538/newgen-videos/newgen/DJI_20240330191842_0045_D_2.mp4", rotation: -8 },
+  { id: 3, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542540/newgen-videos/newgen/IMG_1710.mp4", rotation: 14 },
+  { id: 4, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542541/newgen-videos/newgen/IMG_1961.mp4", rotation: -5 },
+  { id: 5, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542544/newgen-videos/newgen/IMG_3179.mov", rotation: 9 },
+  { id: 6, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542547/newgen-videos/newgen/IMG_3180.mp4", rotation: -13 },
+  { id: 7, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542549/newgen-videos/newgen/IMG_6853.mp4", rotation: 6 },
+  { id: 8, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542552/newgen-videos/newgen/IMG_8345.mp4", rotation: -10 },
+  { id: 9, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542553/newgen-videos/newgen/IMG_8346.mp4", rotation: 15 },
+  { id: 10, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542555/newgen-videos/newgen/IMG_8347.mp4", rotation: -3 },
+  { id: 11, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542557/newgen-videos/newgen/IMG_8348.mp4", rotation: 12 },
+  { id: 12, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542558/newgen-videos/newgen/IMG_8350.mp4", rotation: -7 },
+  { id: 13, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542560/newgen-videos/newgen/IMG_8351.mp4", rotation: 4 },
+  { id: 14, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542562/newgen-videos/newgen/IMG_8352.mp4", rotation: -14 },
+  { id: 15, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542563/newgen-videos/newgen/IMG_8542.mov", rotation: 8 },
 ];
 
 export function UnityPage({ onBack }: { onBack: () => void }) {
@@ -471,16 +471,10 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         muted
                         loop
                         playsInline
-                        preload="metadata"
-                        onLoadedMetadata={(e) => {
-                          // Seek to first frame and try to play
-                          const target = e.target as HTMLVideoElement;
-                          target.currentTime = 0.01;
-                          target.muted = true;
-                          target.play().catch(() => {
-                            // Autoplay blocked, show poster instead
-                            target.pause();
-                          });
+                        autoPlay
+                        preload="auto"
+                        onLoadedData={() => {
+                          console.log(`✅ Video loaded: ${video.src.split('/').pop()}`);
                         }}
                         onError={(e) => {
                           console.error(`❌ Video failed: ${video.src}`, e);
