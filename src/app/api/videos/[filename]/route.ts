@@ -9,8 +9,12 @@ export async function GET(
     const { filename } = await params;
     const decodedFilename = decodeURIComponent(filename);
     
+    console.log('📹 Requesting video:', decodedFilename);
+    
     // Build the blob URL
     const blobUrl = `https://7vvelc927xsbk0re.private.blob.vercel-storage.com/videos/${decodedFilename}`;
+    
+    console.log('🔗 Fetching from:', blobUrl);
     
     // Fetch the video from Blob storage with the token
     const response = await fetch(blobUrl, {
@@ -19,9 +23,14 @@ export async function GET(
       },
     });
     
+    console.log('📊 Response status:', response.status);
+    
     if (!response.ok) {
-      return new NextResponse('Video not found', { status: 404 });
+      console.error('❌ Failed to fetch:', response.status, response.statusText);
+      return new NextResponse(`Video not found: ${decodedFilename}`, { status: 404 });
     }
+    
+    console.log('✅ Streaming video:', decodedFilename);
     
     // Stream the video to the client
     return new NextResponse(response.body, {
@@ -33,6 +42,7 @@ export async function GET(
       },
     });
   } catch (error: any) {
+    console.error('💥 Error:', error.message);
     return new NextResponse(`Error: ${error.message}`, { status: 500 });
   }
 }
