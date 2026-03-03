@@ -119,7 +119,7 @@ export function PreloadAssets() {
       const previewPromises = VIDEOS.map(video => {
         return new Promise((resolve) => {
           const videoEl = document.createElement('video');
-          videoEl.preload = 'metadata';
+          videoEl.preload = 'metadata';  // Only load first frame, not full video
           videoEl.src = video.src;
           videoEl.muted = true;
           videoEl.onloadeddata = () => {
@@ -136,36 +136,7 @@ export function PreloadAssets() {
       Promise.all(previewPromises).then((results) => {
         const success = results.filter(r => r).length;
         console.log(`✅ STEP 8: ${success}/${VIDEOS.length} video previews loaded`);
-        
-        // STEP 9: Full videos are being cached
-        step9_PreloadFullVideos();
-      });
-    };
-
-    // STEP 9: Full videos are being cached
-    const step9_PreloadFullVideos = () => {
-      console.log('🎥 STEP 9: Full videos are being cached...');
-      
-      const videoPromises = VIDEOS.map(video => {
-        return new Promise((resolve) => {
-          const videoEl = document.createElement('video');
-          videoEl.preload = 'auto';
-          videoEl.src = video.src;
-          videoEl.onloadeddata = () => {
-            console.log(`   ✅ Full: ${video.src.split('/').pop()}`);
-            resolve(true);
-          };
-          videoEl.onerror = () => {
-            console.warn(`   ⚠️ Full failed: ${video.src.split('/').pop()}`);
-            resolve(false);
-          };
-        });
-      });
-
-      Promise.all(videoPromises).then((results) => {
-        const success = results.filter(r => r).length;
-        console.log(`✅ STEP 10: ${success}/${VIDEOS.length} full videos cached`);
-        console.log('🎉 All assets preloaded!\n');
+        console.log('🎉 All assets preloaded! (Videos stream on-demand)\n');
       });
     };
 

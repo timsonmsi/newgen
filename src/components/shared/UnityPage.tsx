@@ -63,7 +63,6 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set());
   const videoRef = useRef<HTMLVideoElement>(null);
   
   // Switch to BTS music when entering Unity page
@@ -83,11 +82,6 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
       setProgress(videoRef.current.currentTime);
       setDuration(videoRef.current.duration || 0);
     }
-  }, []);
-
-  // Handle video loaded
-  const handleVideoLoaded = useCallback((videoId: number) => {
-    setLoadedVideos(prev => new Set(prev).add(videoId));
   }, []);
 
   // Handle video loaded metadata
@@ -477,29 +471,21 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         muted
                         loop
                         playsInline
-                        autoPlay
-                        preload="auto"
+                        preload="metadata"
                         onLoadedMetadata={(e) => {
-                          // Seek to 0.1 seconds to show first frame
+                          // Seek to first frame and try to play
                           const target = e.target as HTMLVideoElement;
-                          target.currentTime = 0.1;
-                          target.play().catch(() => {});
-                        }}
-                        onLoadedData={() => {
-                          console.log(`✅ Video loaded: ${video.src}`);
-                          handleVideoLoaded(video.id);
+                          target.currentTime = 0.01;
+                          target.muted = true;
+                          target.play().catch(() => {
+                            // Autoplay blocked, show poster instead
+                            target.pause();
+                          });
                         }}
                         onError={(e) => {
                           console.error(`❌ Video failed: ${video.src}`, e);
                         }}
                       />
-
-                      {/* Loading indicator - hide when loaded */}
-                      {!loadedVideos.has(video.id) && (
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                          <div className="w-8 h-8 border-2 border-white/30 border-t-white/80 rounded-full animate-spin" />
-                        </div>
-                      )}
 
                       {/* Play overlay on hover */}
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
