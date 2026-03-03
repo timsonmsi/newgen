@@ -87,8 +87,14 @@ export function PreloadAssets() {
           videoEl.preload = 'metadata';
           videoEl.src = video.src;
           videoEl.muted = true;
-          videoEl.onloadeddata = () => resolve(true);
-          videoEl.onerror = () => resolve(false);
+          videoEl.onloadeddata = () => {
+            console.log(`   ✅ Preview: ${video.src.split('/').pop()}`);
+            resolve(true);
+          };
+          videoEl.onerror = () => {
+            console.warn(`   ⚠️ Preview failed: ${video.src.split('/').pop()}`);
+            resolve(false);
+          };
         });
       });
 
@@ -111,10 +117,13 @@ export function PreloadAssets() {
           videoEl.preload = 'auto';
           videoEl.src = video.src;
           videoEl.onloadeddata = () => {
-            console.log(`   ✅ ${video.src.split('/').pop()}`);
+            console.log(`   ✅ Full: ${video.src.split('/').pop()}`);
             resolve(true);
           };
-          videoEl.onerror = () => resolve(false);
+          videoEl.onerror = () => {
+            console.warn(`   ⚠️ Full failed: ${video.src.split('/').pop()}`);
+            resolve(false);
+          };
         });
       });
 
