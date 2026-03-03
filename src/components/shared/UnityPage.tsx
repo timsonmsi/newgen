@@ -431,7 +431,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
           >
             <h3 className="text-xl font-serif tracking-[0.3em] uppercase text-white/60 mb-8 text-center">Video Memories</h3>
 
-            {/* Video grid - 4 per row - SIMPLIFIED (no frame) */}
+            {/* Video grid - 4 per row with film roll frame */}
             <div className="grid grid-cols-4 gap-4 justify-items-center">
               {VIDEOS.map((video, index) => (
                 <motion.div
@@ -443,44 +443,61 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                   onClick={() => handleVideoClick(video)}
                   style={{ transformOrigin: 'top center' }}
                 >
-                  {/* Simple video container - NO FRAME */}
-                  <div className="relative w-[280px] h-[200px] bg-black rounded-lg overflow-hidden shadow-2xl">
-                    <video
-                      src={video.src}
-                      poster={video.poster}
-                      className="w-full h-full"
-                      style={{
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                      }}
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
-                      preload="auto"
-                      onLoadedData={() => {
-                        console.log(`✅ Video loaded: ${video.src.split('/').pop()}`);
-                      }}
-                      onError={(e) => {
-                        console.error(`❌ Video failed: ${video.src}`, e);
-                      }}
-                    />
-                    
-                    {/* Play overlay on hover */}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <motion.div
-                        initial={{ scale: 0.8 }}
-                        whileHover={{ scale: 1.1 }}
-                        className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
-                      >
-                        <Play size={28} className="fill-white text-white ml-1" />
-                      </motion.div>
+                  {/* Film roll frame container */}
+                  <div className="relative bg-black shadow-2xl" style={{ width: '280px', height: '200px' }}>
+                    {/* Sprocket holes top */}
+                    <div className="absolute top-0 left-0 right-0 h-3 bg-black flex justify-around items-center px-2">
+                      {Array.from({ length: 14 }).map((_, i) => (
+                        <div key={i} className="w-2 h-2 bg-gray-900 rounded-sm" />
+                      ))}
                     </div>
-                  </div>
-                  
-                  {/* Video ID label */}
-                  <div className="absolute bottom-2 left-2 text-white/70 text-xs font-mono bg-black/80 px-2 py-0.5 rounded">
-                    #{video.id.toString().padStart(2, '0')}
+
+                    {/* Sprocket holes bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 h-3 bg-black flex justify-around items-center px-2">
+                      {Array.from({ length: 14 }).map((_, i) => (
+                        <div key={i} className="w-2 h-2 bg-gray-900 rounded-sm" />
+                      ))}
+                    </div>
+
+                    {/* Video container - inset from sprocket holes */}
+                    <div className="absolute top-3 bottom-3 left-0 right-0 bg-black overflow-hidden">
+                      <video
+                        src={video.src}
+                        poster={video.poster}
+                        className="w-full h-full"
+                        style={{
+                          objectFit: 'cover',
+                          objectPosition: 'center',
+                        }}
+                        muted
+                        loop
+                        playsInline
+                        autoPlay
+                        preload="auto"
+                        onLoadedData={() => {
+                          console.log(`✅ Video loaded: ${video.src.split('/').pop()}`);
+                        }}
+                        onError={(e) => {
+                          console.error(`❌ Video failed: ${video.src}`, e);
+                        }}
+                      />
+                      
+                      {/* Play overlay on hover */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <motion.div
+                          initial={{ scale: 0.8 }}
+                          whileHover={{ scale: 1.1 }}
+                          className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+                        >
+                          <Play size={28} className="fill-white text-white ml-1" />
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Film frame number */}
+                    <div className="absolute bottom-4 left-2 text-white/70 text-xs font-mono bg-black/80 px-2 py-0.5 rounded z-20">
+                      #{video.id.toString().padStart(2, '0')}
+                    </div>
                   </div>
                 </motion.div>
               ))}
