@@ -7,13 +7,17 @@ import { Volume2, VolumeX, Play, Pause } from 'lucide-react';
 // Global audio instance and state
 let globalAudio: HTMLAudioElement | null = null;
 let currentTrackIndex = 0;
+let isBTSPlaying = false;
 
-// Playlist - 3 songs that play continuously
+// Main playlist - 3 songs that play continuously on main pages
 const PLAYLIST = [
   '/music/Ninety One - Aiyptama.mp3',
   '/music/Alpha - Demim.mp3',
   '/music/Ninety One - Jurek.mp3',
 ];
+
+// BTS track for Celebrate Together page
+const BTS_TRACK = '/music/BTS - I Need U (Piano).mp3';
 
 export function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -139,6 +143,32 @@ export const startGlobalAudio = async () => {
   } catch (err) {
     console.log('Audio start failed');
     return false;
+  }
+};
+
+// Switch between playlist and BTS
+export const switchTrack = (track: 'playlist' | 'bts') => {
+  if (!globalAudio) return;
+  
+  const wasPlaying = !globalAudio.paused;
+  
+  if (track === 'bts' && !isBTSPlaying) {
+    // Switch to BTS
+    globalAudio.src = BTS_TRACK;
+    globalAudio.loop = true;
+    isBTSPlaying = true;
+    if (wasPlaying) {
+      globalAudio.play().catch(() => {});
+    }
+  } else if (track === 'playlist' && isBTSPlaying) {
+    // Switch back to playlist
+    globalAudio.src = PLAYLIST[0];
+    globalAudio.loop = false;
+    currentTrackIndex = 0;
+    isBTSPlaying = false;
+    if (wasPlaying) {
+      globalAudio.play().catch(() => {});
+    }
   }
 };
 

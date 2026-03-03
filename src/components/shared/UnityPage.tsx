@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
-import { muteMusic, unmuteMusic } from "./MusicPlayer";
+import { switchTrack, muteMusic, unmuteMusic } from "./MusicPlayer";
 import { Play, Pause, Volume2, VolumeX, X } from "lucide-react";
 import { memoryCache } from './PreloadAssets';
 
@@ -68,6 +68,15 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Switch to BTS music when entering Celebrate Together page
+  useEffect(() => {
+    switchTrack('bts');
+    return () => {
+      // Switch back to playlist when leaving
+      switchTrack('playlist');
+    };
+  }, []);
 
   useEffect(() => { const t = setTimeout(() => setShow(true), 300); return () => clearTimeout(t); }, []);
 
