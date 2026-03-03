@@ -37,21 +37,21 @@ export const POLAROID_ROWS = [
 ];
 
 export const VIDEOS = [
-  { id: 1, src: "/api/videos/DJI_20240330191842_0045_D.mp4", rotation: 11 },
-  { id: 2, src: "/api/videos/DJI_20240330191842_0045_D_2.mp4", rotation: -8 },
-  { id: 3, src: "/api/videos/IMG_1710.MP4", rotation: 14 },
-  { id: 4, src: "/api/videos/IMG_1961.MOV", rotation: -5 },
-  { id: 5, src: "/api/videos/IMG_3179.MP4", rotation: 9 },
-  { id: 6, src: "/api/videos/IMG_3180.MP4", rotation: -13 },
-  { id: 7, src: "/api/videos/IMG_6853.MP4", rotation: 6 },
-  { id: 8, src: "/api/videos/IMG_8345.MOV", rotation: -10 },
-  { id: 9, src: "/api/videos/IMG_8346.MOV", rotation: 15 },
-  { id: 10, src: "/api/videos/IMG_8347.MOV", rotation: -3 },
-  { id: 11, src: "/api/videos/IMG_8348.MOV", rotation: 12 },
-  { id: 12, src: "/api/videos/IMG_8350.MOV", rotation: -7 },
-  { id: 13, src: "/api/videos/IMG_8351.MOV", rotation: 4 },
-  { id: 14, src: "/api/videos/IMG_8352.MOV", rotation: -14 },
-  { id: 15, src: "/api/videos/IMG_8542.MOV", rotation: 8 },
+  { id: 1, src: "/videos/DJI_20240330191842_0045_D.mp4", rotation: 11 },
+  { id: 2, src: "/videos/DJI_20240330191842_0045_D_2.mp4", rotation: -8 },
+  { id: 3, src: "/videos/IMG_1710.MP4", rotation: 14 },
+  { id: 4, src: "/videos/IMG_1961.MOV", rotation: -5 },
+  { id: 5, src: "/videos/IMG_3179.MP4", rotation: 9 },
+  { id: 6, src: "/videos/IMG_3180.MP4", rotation: -13 },
+  { id: 7, src: "/videos/IMG_6853.MP4", rotation: 6 },
+  { id: 8, src: "/videos/IMG_8345.MOV", rotation: -10 },
+  { id: 9, src: "/videos/IMG_8346.MOV", rotation: 15 },
+  { id: 10, src: "/videos/IMG_8347.MOV", rotation: -3 },
+  { id: 11, src: "/videos/IMG_8348.MOV", rotation: 12 },
+  { id: 12, src: "/videos/IMG_8350.MOV", rotation: -7 },
+  { id: 13, src: "/videos/IMG_8351.MOV", rotation: 4 },
+  { id: 14, src: "/videos/IMG_8352.MOV", rotation: -14 },
+  { id: 15, src: "/videos/IMG_8542.MOV", rotation: 8 },
 ];
 
 export function UnityPage({ onBack }: { onBack: () => void }) {
@@ -459,12 +459,12 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                       {/* Video preview (muted, looping, autoplay) */}
                       <video
                         src={video.src}
-                        className="w-full h-full object-fill"
+                        className="w-full h-full object-cover"
                         muted
                         loop
                         playsInline
                         autoPlay
-                        preload="auto"
+                        preload="metadata"
                         poster={`data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="280" height="200"><rect fill="%231a1a1a" width="280" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23666" font-size="48">🎬</text></svg>`}
                         onLoadedData={() => handleVideoLoaded(video.id)}
                       />
