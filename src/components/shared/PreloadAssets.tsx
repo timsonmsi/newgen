@@ -6,21 +6,19 @@ import { POLAROID_ROWS, VIDEOS } from '@/components/shared/UnityPage';
 // Global caches for instant access
 export const avatarCache = new Map<string, string>();
 export const memoryCache = new Map<string, string>();
-export const videoCache = new Map<number, HTMLVideoElement>();
 
 export function PreloadAssets() {
   useEffect(() => {
-    // Priority 1: Preload avatars FIRST and cache in memory
-    const preloadAvatars = () => {
+    // STEP 1: Avatars preload and cache
+    const step1_PreloadAvatars = () => {
+      console.log('🎯 STEP 1: Avatars preload and cache...');
       const avatars = ['alyok', 'sabinina', 'nazken', 'molya', 'zhansiko', 'oliyash', 'ardashon'];
-      console.log('🎯 Starting avatar preload...');
-
+      
       const avatarPromises = avatars.map(avatar => {
         return new Promise((resolve) => {
           const img = new Image();
           img.src = `/avatars/${avatar}.webp`;
           img.onload = () => {
-            // Convert to data URL for instant in-memory access
             const canvas = document.createElement('canvas');
             canvas.width = img.width;
             canvas.height = img.height;
@@ -29,122 +27,108 @@ export function PreloadAssets() {
               ctx.drawImage(img, 0, 0);
               const dataUrl = canvas.toDataURL('image/webp');
               avatarCache.set(avatar, dataUrl);
-              console.log(`✅ Avatar cached in memory: ${avatar}`);
             }
             resolve(true);
           };
-          img.onerror = () => {
-            console.warn(`⚠️ Avatar failed: ${avatar}`);
-            resolve(false);
-          };
+          img.onerror = () => resolve(false);
         });
       });
 
       Promise.all(avatarPromises).then((results) => {
         const success = results.filter(r => r).length;
-        console.log(`✅ ${success}/${avatars.length} avatars preloaded and cached`);
+        console.log(`✅ STEP 2: ${success}/${avatars.length} avatars cached`);
         
-        // Priority 2: Preload video thumbnails ONLY (first frame for preview)
-        preloadVideoThumbnails();
+        // STEP 3: Memories start preloading
+        step3_PreloadMemories();
       });
     };
 
-    // Priority 2: Preload video thumbnails (first frame for preview)
-    const preloadVideoThumbnails = () => {
-      console.log('🎬 Starting video thumbnail preload...');
-      const thumbnailPromises = VIDEOS.map(video => {
+    // STEP 3: Memories start preloading
+    const step3_PreloadMemories = () => {
+      console.log('📸 STEP 3: Memories start preloading...');
+      const allMemories = POLAROID_ROWS.flat();
+      
+      const memoryPromises = allMemories.map(polaroid => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = polaroid.src;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(img, 0, 0);
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+              memoryCache.set(polaroid.src, dataUrl);
+            }
+            resolve(true);
+          };
+          img.onerror = () => resolve(false);
+        });
+      });
+
+      Promise.all(memoryPromises).then((results) => {
+        const success = results.filter(r => r).length;
+        console.log(`✅ STEP 4: ${success}/${allMemories.length} memories cached`);
+        
+        // STEP 5: Video previews start loading
+        step5_PreloadVideoPreviews();
+      });
+    };
+
+    // STEP 5: Video previews start loading
+    const step5_PreloadVideoPreviews = () => {
+      console.log('🎬 STEP 5: Video previews start loading...');
+      
+      const previewPromises = VIDEOS.map(video => {
         return new Promise((resolve) => {
           const videoEl = document.createElement('video');
           videoEl.preload = 'metadata';
           videoEl.src = video.src;
           videoEl.muted = true;
-          videoEl.onloadeddata = () => {
-            console.log(`✅ Video thumbnail ready: ${video.src.split('/').pop()}`);
-            // Cache the video element for instant playback
-            videoCache.set(video.id, videoEl);
-            resolve(true);
-          };
-          videoEl.onerror = () => {
-            console.warn(`⚠️ Video thumbnail failed: ${video.src}`);
-            resolve(false);
-          };
+          videoEl.onloadeddata = () => resolve(true);
+          videoEl.onerror = () => resolve(false);
         });
       });
 
-      Promise.all(thumbnailPromises).then((results) => {
+      Promise.all(previewPromises).then((results) => {
         const success = results.filter(r => r).length;
-        console.log(`✅ ${success}/${VIDEOS.length} video thumbnails ready`);
+        console.log(`✅ STEP 6: ${success}/${VIDEOS.length} video previews loaded`);
         
-        // Priority 3: Preload all memories (full images for popup)
-        preloadImages();
+        // STEP 7: Full videos are being cached
+        step7_PreloadFullVideos();
       });
     };
 
-    // Priority 3: Preload all images (including full-size for popup)
-    const preloadImages = () => {
-      console.log('📸 Starting memories preload...');
-      const imagePromises = POLAROID_ROWS.flatMap(row =>
-        row.map(polaroid => {
-          return new Promise((resolve) => {
-            const img = new Image();
-            img.src = polaroid.src;
-            img.onload = () => {
-              // Convert to data URL for instant popup display
-              const canvas = document.createElement('canvas');
-              canvas.width = img.width;
-              canvas.height = img.height;
-              const ctx = canvas.getContext('2d');
-              if (ctx) {
-                ctx.drawImage(img, 0, 0);
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-                memoryCache.set(polaroid.src, dataUrl);
-              }
-              resolve(true);
-            };
-            img.onerror = () => resolve(false);
-          });
-        })
-      );
-
-      Promise.all(imagePromises).then((results) => {
-        const success = results.filter(r => r).length;
-        console.log(`✅ ${success}/${POLAROID_ROWS.flat().length} memories preloaded and cached`);
-        
-        // Priority 4: Preload full videos (after photos are cached)
-        preloadVideos();
-      });
-    };
-
-    // Priority 4: Preload full videos (after photos are cached)
-    const preloadVideos = () => {
-      console.log('🎥 Starting full video preload...');
+    // STEP 7: Full videos are being cached
+    const step7_PreloadFullVideos = () => {
+      console.log('🎥 STEP 7: Full videos are being cached...');
+      
       const videoPromises = VIDEOS.map(video => {
         return new Promise((resolve) => {
           const videoEl = document.createElement('video');
           videoEl.preload = 'auto';
           videoEl.src = video.src;
           videoEl.onloadeddata = () => {
-            console.log(`✅ Full video loaded: ${video.src.split('/').pop()}`);
+            console.log(`   ✅ ${video.src.split('/').pop()}`);
             resolve(true);
           };
-          videoEl.onerror = () => {
-            console.warn(`⚠️ Video failed: ${video.src}`);
-            resolve(false);
-          };
+          videoEl.onerror = () => resolve(false);
         });
       });
 
       Promise.all(videoPromises).then((results) => {
         const success = results.filter(r => r).length;
-        console.log(`✅ ${success}/${VIDEOS.length} full videos preloaded`);
+        console.log(`✅ STEP 8: ${success}/${VIDEOS.length} full videos cached`);
+        console.log('🎉 All assets preloaded!\n');
       });
     };
 
-    // Start the chain: Avatars → Video Thumbnails → Memories → Full Videos
-    preloadAvatars();
+    // Start the sequence
+    step1_PreloadAvatars();
   }, []);
 
-  // This component doesn't render anything visible
   return null;
 }
 
