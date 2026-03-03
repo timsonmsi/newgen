@@ -62,6 +62,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set());
   const videoRef = useRef<HTMLVideoElement>(null);
   
   // Switch to BTS music when entering Unity page
@@ -81,6 +82,11 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
       setProgress(videoRef.current.currentTime);
       setDuration(videoRef.current.duration || 0);
     }
+  }, []);
+
+  // Handle video loaded
+  const handleVideoLoaded = useCallback((videoId: number) => {
+    setLoadedVideos(prev => new Set(prev).add(videoId));
   }, []);
 
   // Handle video loaded metadata
@@ -448,7 +454,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                     </div>
 
                     {/* Video area (inside film frame) - sharp corners */}
-                    <div className="absolute inset-6 bg-black overflow-hidden">
+                    <div className="absolute inset-6 bg-black overflow-hidden relative">
                       {/* Video preview (muted, looping, autoplay) */}
                       <video
                         src={video.src}
@@ -457,7 +463,17 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         loop
                         playsInline
                         autoPlay
+                        preload="auto"
+                        poster={`data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="280" height="200"><rect fill="%231a1a1a" width="280" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23666" font-size="48">🎬</text></svg>`}
+                        onLoadedData={() => handleVideoLoaded(video.id)}
                       />
+
+                      {/* Loading indicator - hide when loaded */}
+                      {!loadedVideos.has(video.id) && (
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="w-8 h-8 border-2 border-white/30 border-t-white/80 rounded-full animate-spin" />
+                        </div>
+                      )}
 
                       {/* Play overlay on hover */}
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

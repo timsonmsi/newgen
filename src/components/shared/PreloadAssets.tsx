@@ -48,20 +48,26 @@ export function PreloadAssets() {
       });
     };
 
-    // Priority 3: Preload video metadata (not full videos to save bandwidth)
+    // Priority 3: Preload videos (full files for instant playback)
     const preloadVideos = () => {
       const videoPromises = VIDEOS.map(video => {
         return new Promise((resolve) => {
           const videoEl = document.createElement('video');
-          videoEl.preload = 'metadata';
+          videoEl.preload = 'auto';  // Preload entire video
           videoEl.src = video.src;
-          videoEl.onloadedmetadata = () => resolve(true);
-          videoEl.onerror = () => resolve(false);
+          videoEl.onloadeddata = () => {
+            console.log(`✅ Video loaded: ${video.src}`);
+            resolve(true);
+          };
+          videoEl.onerror = () => {
+            console.warn(`⚠️ Video failed: ${video.src}`);
+            resolve(false);
+          };
         });
       });
 
       Promise.all(videoPromises).then(() => {
-        console.log('✅ All video metadata loaded');
+        console.log('✅ All videos preloaded');
       });
     };
 
