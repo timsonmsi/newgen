@@ -201,7 +201,7 @@ export function GirlIntro({ girl, onComplete }: GirlIntroProps) {
             {/* Inner frame with BLACK background to block any particles */}
             <div className="absolute inset-1 rounded-full overflow-hidden bg-black">
               <Image
-                src={`/avatars/${girl.id}.jpg`}
+                src={`/avatars/${girl.id}.webp`}
                 alt={girl.name}
                 fill
                 className="object-cover"

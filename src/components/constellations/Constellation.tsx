@@ -176,7 +176,7 @@ export function Constellation({ visited, onSelect, onUnity }: Props) {
               >
                 <div className="relative w-32 h-32" style={{ boxShadow: `0 0 40px ${girl.color}` }}>
                   <Image
-                    src={`/avatars/${girl.id}.jpg`}
+                    src={`/avatars/${girl.id}.webp`}
                     alt={girl.name}
                     fill
                     className="object-cover"
