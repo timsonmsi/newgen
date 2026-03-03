@@ -6,6 +6,7 @@ import { IntroSequence } from "@/components/shared/IntroSequence";
 import { Constellation, Girl } from "@/components/constellations";
 import { GirlIntro } from "@/components/shared/GirlIntro";
 import { UnityPage } from "@/components/shared/UnityPage";
+import { PreloadAssets } from "@/components/shared/PreloadAssets";
 import {
   AlyokUniverse,
   SabininaUniverse,
@@ -56,6 +57,9 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen bg-[#05050a] text-white overflow-hidden">
+      {/* Preload all assets in background */}
+      <PreloadAssets />
+      
       <AnimatePresence mode="wait">
         {phase === "intro" && (
           <motion.div key="intro" className="w-full h-full">

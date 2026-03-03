@@ -24,7 +24,7 @@ const BURST = Array.from({ length: 40 }, (_, i) => ({
   id: i, angle: (i / 40) * 360, color: GIRLS[i % GIRLS.length].color, dist: 150 + Math.random() * 200,
 }));
 
-const POLAROID_ROWS = [
+export const POLAROID_ROWS = [
   [{ id: 1, src: "/memories/20230212_222942.jpg", rotation: -5 }, { id: 2, src: "/memories/20230302_225341.jpg", rotation: 3 }, { id: 3, src: "/memories/20230429_010315.jpg", rotation: -2 }, { id: 4, src: "/memories/20230530_195736.jpg", rotation: 4 }, { id: 5, src: "/memories/20230625_123347.jpg", rotation: -4 }, { id: 6, src: "/memories/20230701_235147.jpg", rotation: 3 }],
   [{ id: 7, src: "/memories/20231014_151529.jpg", rotation: -3 }, { id: 8, src: "/memories/20240204_170451.jpg", rotation: 2 }, { id: 9, src: "/memories/20240217_175354.jpg", rotation: -4 }, { id: 10, src: "/memories/20240224_172616.jpg", rotation: 5 }, { id: 11, src: "/memories/20240224_180233.jpg", rotation: -3 }, { id: 12, src: "/memories/20240224_180238.jpg", rotation: 4 }],
   [{ id: 13, src: "/memories/20240224_180244.jpg", rotation: -2 }, { id: 14, src: "/memories/20240401_194531.jpg", rotation: 3 }, { id: 15, src: "/memories/20240506_155343.jpg", rotation: -5 }, { id: 16, src: "/memories/20240910_160847(0).jpg", rotation: 4 }, { id: 17, src: "/memories/20250205_160151.jpg", rotation: -3 }, { id: 18, src: "/memories/20250405_193634.jpg", rotation: 2 }],
@@ -36,7 +36,7 @@ const POLAROID_ROWS = [
   [{ id: 49, src: "/memories/photo_2026-03-02 18.11.18.jpeg", rotation: -3 }, { id: 50, src: "/memories/photo_2026-03-02 18.11.20.jpeg", rotation: 3 }, { id: 51, src: "/memories/Screenshot 2026-03-02 at 18.25.01.png", rotation: -2 }, { id: 52, src: "/memories/Screenshot 2026-03-02 at 18.25.51.png", rotation: 4 }, { id: 53, src: "/memories/YBS - Vogue (God of Music).png", rotation: -5 }],
 ];
 
-const VIDEOS = [
+export const VIDEOS = [
   { id: 1, src: "/videos/DJI_20240330191842_0045_D.mp4", rotation: 11 },
   { id: 2, src: "/videos/DJI_20240330191842_0045_D_2.mp4", rotation: -8 },
   { id: 3, src: "/videos/IMG_1710.MP4", rotation: 14 },
@@ -392,9 +392,11 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                               sizes="140px"
                               loading="lazy"
                               quality={85}
-                              placeholder="blur"
-                              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                              onError={(e) => { const target = e.target as HTMLImageElement; target.src = '/memories/20230212_222942.jpg'; }} />
+                              onError={(e) => { 
+                                const target = e.target as HTMLImageElement; 
+                                console.log('Image failed to load:', polaroid.src);
+                              }} 
+                            />
                           </div>
                         </motion.div>
                       </motion.div>
