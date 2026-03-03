@@ -448,21 +448,21 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                     <div className="absolute inset-0 border-8 border-black bg-black" />
 
                     {/* White sprocket holes top - rectangular, evenly spaced */}
-                    <div className="absolute top-1 left-0 right-0 h-2 z-20 flex justify-around px-3">
+                    <div className="absolute top-1 left-0 right-0 h-2 z-10 flex justify-around px-3">
                       {Array.from({ length: 12 }).map((_, i) => (
                         <div key={i} className="w-1.5 h-2 bg-white" />
                       ))}
                     </div>
 
                     {/* White sprocket holes bottom - rectangular, evenly spaced */}
-                    <div className="absolute bottom-1 left-0 right-0 h-2 z-20 flex justify-around px-3">
+                    <div className="absolute bottom-1 left-0 right-0 h-2 z-10 flex justify-around px-3">
                       {Array.from({ length: 12 }).map((_, i) => (
                         <div key={i} className="w-1.5 h-2 bg-white" />
                       ))}
                     </div>
 
                     {/* Video area (inside film frame) - sharp corners */}
-                    <div className="absolute inset-6 bg-black overflow-hidden relative">
+                    <div className="absolute inset-6 bg-black overflow-hidden relative z-0">
                       {/* Video preview (muted, looping, autoplay) */}
                       <video
                         src={video.src}
@@ -486,7 +486,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                       />
 
                       {/* Play overlay on hover */}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
                         <motion.div
                           initial={{ scale: 0.8 }}
                           whileHover={{ scale: 1.1 }}
