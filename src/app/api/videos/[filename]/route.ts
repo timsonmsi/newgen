@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { get } from '@vercel/blob';
+import { getDownloadUrl } from '@vercel/blob';
 
 // Handle GET requests to serve videos from Blob
 export async function GET(
@@ -12,25 +12,17 @@ export async function GET(
     // Decode the filename (handles spaces and special characters)
     const decodedFilename = decodeURIComponent(filename);
     
-    // Get the video from Blob storage
-    const result = await get(`videos/${decodedFilename}`, {
-      access: 'private',
-    });
+    console.log('Serving video:', decodedFilename);
     
-    if (!result || !result.blob) {
-      return new NextResponse('Video not found', { status: 404 });
-    }
+    // Get the download URL for the video (works with private blobs)
+    const downloadUrl = await getDownloadUrl(`videos/${decodedFilename}`);
     
-    // Return the video stream with proper headers
-    return new NextResponse(result.stream, {
-      headers: {
-        'Content-Type': result.blob.contentType || 'video/mp4',
-        'Content-Length': result.blob.size?.toString() || '',
-        'Cache-Control': 'public, max-age=31536000, immutable',
-      },
-    });
-  } catch (error) {
-    console.error('Error serving video:', error);
-    return new NextResponse('Video not found', { status: 404 });
+    console.log('Redirecting to:', downloadUrl);
+    
+    // Redirect to the Blob download URL
+    return NextResponse.redirect(downloadUrl);
+  } catch (error: any) {
+    console.error('Error serving video:', error.message);
+    return new NextResponse(`Error: ${error.message}`, { status: 500 });
   }
 }
