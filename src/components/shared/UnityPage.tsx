@@ -470,7 +470,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                       <video
                         src={video.src}
                         className="absolute inset-0 w-full h-full"
-                        style={{ 
+                        style={{
                           objectFit: 'cover',
                           objectPosition: 'center',
                         }}
@@ -478,8 +478,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         loop
                         playsInline
                         autoPlay
-                        preload="metadata"
-                        poster={`data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="280" height="200"><rect fill="%231a1a1a" width="280" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23666" font-size="48">🎬</text></svg>`}
+                        preload="auto"
                         onLoadedData={() => handleVideoLoaded(video.id)}
                       />
 

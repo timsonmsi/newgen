@@ -38,14 +38,49 @@ export function PreloadAssets() {
         const success = results.filter(r => r).length;
         console.log(`✅ STEP 2: ${success}/${avatars.length} avatars cached`);
         
-        // STEP 3: Memories start preloading
-        step3_PreloadMemories();
+        // STEP 3: Music start preloading
+        step3_PreloadMusic();
       });
     };
 
-    // STEP 3: Memories start preloading
-    const step3_PreloadMemories = () => {
-      console.log('📸 STEP 3: Memories start preloading...');
+    // STEP 3: Music start preloading
+    const step3_PreloadMusic = () => {
+      console.log('🎵 STEP 3: Music start preloading...');
+      
+      const musicFiles = [
+        '/music/Ninety One - Aiyptama.mp3',
+        '/music/BTS - I Need U (Piano).mp3'
+      ];
+      
+      const musicPromises = musicFiles.map(src => {
+        return new Promise((resolve) => {
+          const audio = new Audio();
+          audio.src = src;
+          audio.preload = 'auto';
+          audio.oncanplaythrough = () => {
+            console.log(`   ✅ Music: ${src.split('/').pop()}`);
+            resolve(true);
+          };
+          audio.onerror = () => {
+            console.warn(`   ⚠️ Music failed: ${src.split('/').pop()}`);
+            resolve(false);
+          };
+          audio.load();
+        });
+      });
+
+      Promise.all(musicPromises).then((results) => {
+        const success = results.filter(r => r).length;
+        console.log(`✅ STEP 4: ${success}/${musicFiles.length} music tracks cached`);
+        
+        // STEP 5: Memories start preloading
+        step5_PreloadMemories();
+      });
+    };
+
+    // STEP 5: Memories start preloading
+    const step5_PreloadMemories = () => {
+      console.log('📸 STEP 5: Memories start preloading...');
       const allMemories = POLAROID_ROWS.flat();
       
       const memoryPromises = allMemories.map(polaroid => {
@@ -70,16 +105,16 @@ export function PreloadAssets() {
 
       Promise.all(memoryPromises).then((results) => {
         const success = results.filter(r => r).length;
-        console.log(`✅ STEP 4: ${success}/${allMemories.length} memories cached`);
+        console.log(`✅ STEP 6: ${success}/${allMemories.length} memories cached`);
         
-        // STEP 5: Video previews start loading
-        step5_PreloadVideoPreviews();
+        // STEP 7: Video previews start loading
+        step7_PreloadVideoPreviews();
       });
     };
 
-    // STEP 5: Video previews start loading
-    const step5_PreloadVideoPreviews = () => {
-      console.log('🎬 STEP 5: Video previews start loading...');
+    // STEP 7: Video previews start loading
+    const step7_PreloadVideoPreviews = () => {
+      console.log('🎬 STEP 7: Video previews start loading...');
       
       const previewPromises = VIDEOS.map(video => {
         return new Promise((resolve) => {
@@ -100,16 +135,16 @@ export function PreloadAssets() {
 
       Promise.all(previewPromises).then((results) => {
         const success = results.filter(r => r).length;
-        console.log(`✅ STEP 6: ${success}/${VIDEOS.length} video previews loaded`);
+        console.log(`✅ STEP 8: ${success}/${VIDEOS.length} video previews loaded`);
         
-        // STEP 7: Full videos are being cached
-        step7_PreloadFullVideos();
+        // STEP 9: Full videos are being cached
+        step9_PreloadFullVideos();
       });
     };
 
-    // STEP 7: Full videos are being cached
-    const step7_PreloadFullVideos = () => {
-      console.log('🎥 STEP 7: Full videos are being cached...');
+    // STEP 9: Full videos are being cached
+    const step9_PreloadFullVideos = () => {
+      console.log('🎥 STEP 9: Full videos are being cached...');
       
       const videoPromises = VIDEOS.map(video => {
         return new Promise((resolve) => {
@@ -129,7 +164,7 @@ export function PreloadAssets() {
 
       Promise.all(videoPromises).then((results) => {
         const success = results.filter(r => r).length;
-        console.log(`✅ STEP 8: ${success}/${VIDEOS.length} full videos cached`);
+        console.log(`✅ STEP 10: ${success}/${VIDEOS.length} full videos cached`);
         console.log('🎉 All assets preloaded!\n');
       });
     };
