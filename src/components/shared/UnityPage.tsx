@@ -479,7 +479,13 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         playsInline
                         autoPlay
                         preload="auto"
-                        onLoadedData={() => handleVideoLoaded(video.id)}
+                        onLoadedData={() => {
+                          console.log(`✅ Video loaded: ${video.src}`);
+                          handleVideoLoaded(video.id);
+                        }}
+                        onError={(e) => {
+                          console.error(`❌ Video failed: ${video.src}`, e);
+                        }}
                       />
 
                       {/* Loading indicator - hide when loaded */}
