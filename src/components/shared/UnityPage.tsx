@@ -38,21 +38,21 @@ export const POLAROID_ROWS = [
 ];
 
 export const VIDEOS = [
-  { id: 1, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542534/newgen-videos/newgen/DJI_20240330191842_0045_D.mp4", rotation: 11 },
-  { id: 2, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542538/newgen-videos/newgen/DJI_20240330191842_0045_D_2.mp4", rotation: -8 },
-  { id: 3, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542540/newgen-videos/newgen/IMG_1710.mp4", rotation: 14 },
-  { id: 4, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542541/newgen-videos/newgen/IMG_1961.mp4", rotation: -5 },
-  { id: 5, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542544/newgen-videos/newgen/IMG_3179.mov", rotation: 9 },
-  { id: 6, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542547/newgen-videos/newgen/IMG_3180.mp4", rotation: -13 },
-  { id: 7, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542549/newgen-videos/newgen/IMG_6853.mp4", rotation: 6 },
-  { id: 8, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542552/newgen-videos/newgen/IMG_8345.mp4", rotation: -10 },
-  { id: 9, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542553/newgen-videos/newgen/IMG_8346.mp4", rotation: 15 },
-  { id: 10, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542555/newgen-videos/newgen/IMG_8347.mp4", rotation: -3 },
-  { id: 11, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542557/newgen-videos/newgen/IMG_8348.mp4", rotation: 12 },
-  { id: 12, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542558/newgen-videos/newgen/IMG_8350.mp4", rotation: -7 },
-  { id: 13, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542560/newgen-videos/newgen/IMG_8351.mp4", rotation: 4 },
-  { id: 14, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542562/newgen-videos/newgen/IMG_8352.mp4", rotation: -14 },
-  { id: 15, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542563/newgen-videos/newgen/IMG_8542.mov", rotation: 8 },
+  { id: 1, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542534/newgen-videos/newgen/DJI_20240330191842_0045_D.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542534/newgen-videos/newgen/DJI_20240330191842_0045_D.jpg", rotation: 11 },
+  { id: 2, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542538/newgen-videos/newgen/DJI_20240330191842_0045_D_2.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542538/newgen-videos/newgen/DJI_20240330191842_0045_D_2.jpg", rotation: -8 },
+  { id: 3, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542540/newgen-videos/newgen/IMG_1710.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542540/newgen-videos/newgen/IMG_1710.jpg", rotation: 14 },
+  { id: 4, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542541/newgen-videos/newgen/IMG_1961.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542541/newgen-videos/newgen/IMG_1961.jpg", rotation: -5 },
+  { id: 5, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542544/newgen-videos/newgen/IMG_3179.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542544/newgen-videos/newgen/IMG_3179.jpg", rotation: 9 },
+  { id: 6, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542547/newgen-videos/newgen/IMG_3180.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542547/newgen-videos/newgen/IMG_3180.jpg", rotation: -13 },
+  { id: 7, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542549/newgen-videos/newgen/IMG_6853.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542549/newgen-videos/newgen/IMG_6853.jpg", rotation: 6 },
+  { id: 8, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542552/newgen-videos/newgen/IMG_8345.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542552/newgen-videos/newgen/IMG_8345.jpg", rotation: -10 },
+  { id: 9, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542553/newgen-videos/newgen/IMG_8346.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542553/newgen-videos/newgen/IMG_8346.jpg", rotation: 15 },
+  { id: 10, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542555/newgen-videos/newgen/IMG_8347.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542555/newgen-videos/newgen/IMG_8347.jpg", rotation: -3 },
+  { id: 11, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542557/newgen-videos/newgen/IMG_8348.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542557/newgen-videos/newgen/IMG_8348.jpg", rotation: 12 },
+  { id: 12, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542558/newgen-videos/newgen/IMG_8350.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542558/newgen-videos/newgen/IMG_8350.jpg", rotation: -7 },
+  { id: 13, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542560/newgen-videos/newgen/IMG_8351.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542560/newgen-videos/newgen/IMG_8351.jpg", rotation: 4 },
+  { id: 14, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542562/newgen-videos/newgen/IMG_8352.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542562/newgen-videos/newgen/IMG_8352.jpg", rotation: -14 },
+  { id: 15, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542563/newgen-videos/newgen/IMG_8542.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542563/newgen-videos/newgen/IMG_8542.jpg", rotation: 8 },
 ];
 
 export function UnityPage({ onBack }: { onBack: () => void }) {
@@ -463,6 +463,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                       {/* Video preview (muted, looping, autoplay) */}
                       <video
                         src={video.src}
+                        poster={video.poster}
                         className="absolute inset-0 w-full h-full"
                         style={{
                           objectFit: 'cover',
