@@ -1,5 +1,5 @@
-// Upload videos to Vercel Blob
-// Run with: node scripts/upload-videos.js
+// Auto-upload videos to Vercel Blob during build
+// This script checks for new videos and uploads them
 
 require('dotenv').config({ path: '.env.local' });
 const Blob = require('@vercel/blob');
@@ -7,37 +7,39 @@ const fs = require('fs');
 const path = require('path');
 
 const VIDEOS_DIR = path.join(__dirname, '../public/videos');
-const VIDEO_FILES = [
-  'DJI_20240330191842_0045_D.mp4',
-  'DJI_20240330191842_0045_D_2.mp4',
-  'IMG_1710.MP4',
-  'IMG_1961.MOV',
-  'IMG_3179.MP4',
-  'IMG_3180.MP4',
-  'IMG_6853.MP4',
-  'IMG_8345.MOV',
-  'IMG_8346.MOV',
-  'IMG_8347.MOV',
-  'IMG_8348.MOV',
-  'IMG_8350.MOV',
-  'IMG_8351.MOV',
-  'IMG_8352.MOV',
-  'IMG_8542.MOV',
-];
+const OUTPUT_FILE = path.join(__dirname, '../src/lib/video-urls.json');
 
-async function uploadVideos() {
-  console.log('🎬 Starting video upload to Vercel Blob...\n');
+async function uploadNewVideos() {
+  console.log('🎬 Checking for new videos to upload...\n');
   
-  const uploadedVideos = [];
-
-  for (const filename of VIDEO_FILES) {
+  // Get existing uploaded videos
+  let uploadedVideos = [];
+  if (fs.existsSync(OUTPUT_FILE)) {
+    uploadedVideos = JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8'));
+  }
+  
+  const uploadedNames = uploadedVideos.map(v => v.original);
+  
+  // Get all video files in directory
+  const allFiles = fs.readdirSync(VIDEOS_DIR);
+  const videoFiles = allFiles.filter(f => 
+    f.endsWith('.mp4') || f.endsWith('.MOV') || f.endsWith('.MOV')
+  );
+  
+  // Find new videos
+  const newVideos = videoFiles.filter(f => !uploadedNames.includes(f));
+  
+  if (newVideos.length === 0) {
+    console.log('✅ All videos already uploaded!');
+    return;
+  }
+  
+  console.log(`📹 Found ${newVideos.length} new video(s):\n`);
+  
+  // Upload new videos
+  for (const filename of newVideos) {
     const filePath = path.join(VIDEOS_DIR, filename);
     
-    if (!fs.existsSync(filePath)) {
-      console.log(`⚠️  File not found: ${filename}`);
-      continue;
-    }
-
     try {
       console.log(`⏳ Uploading: ${filename}...`);
       
@@ -63,13 +65,11 @@ async function uploadVideos() {
     }
   }
 
-  // Save uploaded URLs to a JSON file
-  const outputPath = path.join(__dirname, '../src/lib/video-urls.json');
-  fs.writeFileSync(outputPath, JSON.stringify(uploadedVideos, null, 2));
+  // Save updated URLs
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(uploadedVideos, null, 2));
   
-  console.log('\n🎉 Upload complete!');
-  console.log(`📄 Video URLs saved to: ${outputPath}`);
-  console.log('\n📋 URLs:', JSON.stringify(uploadedVideos.map(v => v.url), null, 2));
+  console.log(`\n🎉 Upload complete! Total videos: ${uploadedVideos.length}`);
+  console.log(`📄 URLs saved to: ${OUTPUT_FILE}`);
 }
 
-uploadVideos().catch(console.error);
+uploadNewVideos().catch(console.error);
