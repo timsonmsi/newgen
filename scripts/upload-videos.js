@@ -1,6 +1,4 @@
-// Auto-upload videos to Vercel Blob during build
-// This script checks for new videos and uploads them
-
+// Force re-upload all videos to Vercel Blob
 require('dotenv').config({ path: '.env.local' });
 const Blob = require('@vercel/blob');
 const fs = require('fs');
@@ -9,35 +7,16 @@ const path = require('path');
 const VIDEOS_DIR = path.join(__dirname, '../public/videos');
 const OUTPUT_FILE = path.join(__dirname, '../src/lib/video-urls.json');
 
-async function uploadNewVideos() {
-  console.log('🎬 Checking for new videos to upload...\n');
+async function uploadAllVideos() {
+  console.log('🎬 Force uploading ALL videos to Vercel Blob...\n');
   
-  // Get existing uploaded videos
-  let uploadedVideos = [];
-  if (fs.existsSync(OUTPUT_FILE)) {
-    uploadedVideos = JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8'));
-  }
-  
-  const uploadedNames = uploadedVideos.map(v => v.original);
-  
-  // Get all video files in directory
-  const allFiles = fs.readdirSync(VIDEOS_DIR);
-  const videoFiles = allFiles.filter(f => 
-    f.endsWith('.mp4') || f.endsWith('.MOV') || f.endsWith('.MOV')
+  const videoFiles = fs.readdirSync(VIDEOS_DIR).filter(f => 
+    f.toLowerCase().endsWith('.mp4') || f.toLowerCase().endsWith('.mov')
   );
   
-  // Find new videos
-  const newVideos = videoFiles.filter(f => !uploadedNames.includes(f));
+  const uploadedVideos = [];
   
-  if (newVideos.length === 0) {
-    console.log('✅ All videos already uploaded!');
-    return;
-  }
-  
-  console.log(`📹 Found ${newVideos.length} new video(s):\n`);
-  
-  // Upload new videos
-  for (const filename of newVideos) {
+  for (const filename of videoFiles) {
     const filePath = path.join(VIDEOS_DIR, filename);
     
     try {
@@ -61,15 +40,14 @@ async function uploadNewVideos() {
         url: blobData.url,
       });
     } catch (error) {
-      console.error(`❌ Failed to upload ${filename}:`, error.message);
+      console.error(`❌ Failed: ${filename} - ${error.message}\n`);
     }
   }
 
-  // Save updated URLs
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(uploadedVideos, null, 2));
   
-  console.log(`\n🎉 Upload complete! Total videos: ${uploadedVideos.length}`);
-  console.log(`📄 URLs saved to: ${OUTPUT_FILE}`);
+  console.log(`\n🎉 Complete! ${uploadedVideos.length}/${videoFiles.length} videos uploaded`);
+  console.log(`📄 Saved to: ${OUTPUT_FILE}`);
 }
 
-uploadNewVideos().catch(console.error);
+uploadAllVideos().catch(console.error);
