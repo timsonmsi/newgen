@@ -4,9 +4,16 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Volume2, VolumeX, Play, Pause } from 'lucide-react';
 
-// Global audio instance
+// Global audio instance and state
 let globalAudio: HTMLAudioElement | null = null;
-let currentTrack: string = 'ninety-one';
+let currentTrackIndex = 0;
+
+// Playlist - 3 songs that play continuously
+const PLAYLIST = [
+  '/music/Ninety One - Aiyptama.mp3',
+  '/music/Alpha - Demim.mp3',
+  '/music/Ninety One - Jurek.mp3',
+];
 
 export function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -16,8 +23,8 @@ export function MusicPlayer() {
   useEffect(() => {
     // Create global audio instance if it doesn't exist
     if (!globalAudio) {
-      globalAudio = new Audio('/music/Ninety One - Aiyptama.mp3');
-      globalAudio.loop = true;
+      globalAudio = new Audio(PLAYLIST[0]);
+      globalAudio.loop = false; // We'll manually loop through playlist
       globalAudio.volume = 0.5;
 
       globalAudio.addEventListener('canplaythrough', () => {
@@ -26,6 +33,15 @@ export function MusicPlayer() {
 
       globalAudio.addEventListener('play', () => setIsPlaying(true));
       globalAudio.addEventListener('pause', () => setIsPlaying(false));
+      
+      // When song ends, play next track
+      globalAudio.addEventListener('ended', () => {
+        currentTrackIndex = (currentTrackIndex + 1) % PLAYLIST.length;
+        if (globalAudio) {
+          globalAudio.src = PLAYLIST[currentTrackIndex];
+          globalAudio.play().catch(() => {});
+        }
+      });
     }
 
     return () => {
@@ -53,6 +69,31 @@ export function MusicPlayer() {
     globalAudio.muted = !isMuted;
     setIsMuted(!isMuted);
   };
+
+  // Expose mute function for video popup
+  useEffect(() => {
+    const handleMuteMusic = () => {
+      if (globalAudio) {
+        globalAudio.muted = true;
+        setIsMuted(true);
+      }
+    };
+    
+    const handleUnmuteMusic = () => {
+      if (globalAudio) {
+        globalAudio.muted = false;
+        setIsMuted(false);
+      }
+    };
+
+    window.addEventListener('muteMusic', handleMuteMusic);
+    window.addEventListener('unmuteMusic', handleUnmuteMusic);
+
+    return () => {
+      window.removeEventListener('muteMusic', handleMuteMusic);
+      window.removeEventListener('unmuteMusic', handleUnmuteMusic);
+    };
+  }, []);
 
   return (
     <div className="fixed bottom-6 right-6 z-[1000] flex gap-2">
@@ -101,28 +142,13 @@ export const startGlobalAudio = async () => {
   }
 };
 
-// Switch track based on page
-export const switchTrack = (track: 'ninety-one' | 'bts') => {
-  if (!globalAudio) return;
-  
-  if (track === currentTrack) return; // Already playing this track
-  
-  const wasPlaying = !globalAudio.paused;
-  const currentTime = globalAudio.currentTime;
-  
-  if (track === 'bts') {
-    globalAudio.src = '/music/BTS - I Need U (Piano).mp3';
-  } else {
-    globalAudio.src = '/music/Ninety One - Aiyptama.mp3';
-  }
-  
-  currentTrack = track;
-  globalAudio.loop = true;
-  globalAudio.volume = 0.5;
-  
-  if (wasPlaying) {
-    globalAudio.play().catch(() => {});
-  }
+// Mute/unmute music (called from video popup)
+export const muteMusic = () => {
+  window.dispatchEvent(new CustomEvent('muteMusic'));
+};
+
+export const unmuteMusic = () => {
+  window.dispatchEvent(new CustomEvent('unmuteMusic'));
 };
 
 export default MusicPlayer;

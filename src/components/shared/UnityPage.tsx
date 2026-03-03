@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
-import { switchTrack } from "./MusicPlayer";
+import { switchTrack, muteMusic, unmuteMusic } from "./MusicPlayer";
 import { Play, Pause, Volume2, VolumeX, X } from "lucide-react";
 import { memoryCache } from './PreloadAssets';
 
@@ -145,6 +145,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
     setIsPlaying(false);
     setProgress(0);
     setSelectedVideo(null);
+    unmuteMusic(); // Unmute background music when closing video
   }, []);
 
   // Handle video click
@@ -153,6 +154,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
     setIsPlaying(true);
     setIsMuted(false); // Unmute when opening popup
     setProgress(0);
+    muteMusic(); // Mute background music when opening video
   }, []);
 
   return (
