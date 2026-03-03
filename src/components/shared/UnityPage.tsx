@@ -479,6 +479,12 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         playsInline
                         autoPlay
                         preload="auto"
+                        onLoadedMetadata={(e) => {
+                          // Seek to 0.1 seconds to show first frame
+                          const target = e.target as HTMLVideoElement;
+                          target.currentTime = 0.1;
+                          target.play().catch(() => {});
+                        }}
                         onLoadedData={() => {
                           console.log(`✅ Video loaded: ${video.src}`);
                           handleVideoLoaded(video.id);
