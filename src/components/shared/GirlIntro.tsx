@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { Sparkles, Play } from 'lucide-react';
 
 interface GirlIntroProps {
@@ -200,14 +199,10 @@ export function GirlIntro({ girl, onComplete }: GirlIntroProps) {
             
             {/* Inner frame with BLACK background to block any particles */}
             <div className="absolute inset-1 rounded-full overflow-hidden bg-black">
-              <Image
+              <img
                 src={`/avatars/${girl.id}.webp`}
                 alt={girl.name}
-                fill
-                className="object-cover"
-                sizes="224px"
-                priority
-                quality={90}
+                className="w-full h-full object-cover"
               />
             </div>
           </motion.div>

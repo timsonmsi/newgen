@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Star as StarIcon, Sparkles } from "lucide-react";
-import Image from "next/image";
 
 export interface Girl {
   id: string;
@@ -175,14 +174,10 @@ export function Constellation({ visited, onSelect, onUnity }: Props) {
                 }}
               >
                 <div className="relative w-32 h-32" style={{ boxShadow: `0 0 40px ${girl.color}` }}>
-                  <Image
+                  <img
                     src={`/avatars/${girl.id}.webp`}
                     alt={girl.name}
-                    fill
-                    className="object-cover"
-                    sizes="128px"
-                    priority={girl.id === 'alyok'}
-                    quality={90}
+                    className="w-full h-full object-cover rounded-full"
                   />
                 </div>
               </motion.div>
