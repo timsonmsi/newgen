@@ -181,6 +181,8 @@ export function Constellation({ visited, onSelect, onUnity }: Props) {
                     fill
                     className="object-cover"
                     sizes="128px"
+                    priority={girl.id === 'alyok'}
+                    quality={90}
                   />
                 </div>
               </motion.div>

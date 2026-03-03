@@ -207,6 +207,8 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                 width={1200}
                 height={1200}
                 className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                quality={90}
+                priority
               />
               <button
                 onClick={() => setSelectedPhoto(null)}
@@ -382,7 +384,16 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                           onClick={() => setSelectedPhoto(polaroid.src)}
                         >
                           <div className="bg-gray-100 aspect-square overflow-hidden relative">
-                            <Image src={polaroid.src} alt={`Memory ${polaroid.id}`} fill className="object-cover" sizes="140px"
+                            <Image 
+                              src={polaroid.src} 
+                              alt={`Memory ${polaroid.id}`} 
+                              fill 
+                              className="object-cover" 
+                              sizes="140px"
+                              loading="lazy"
+                              quality={85}
+                              placeholder="blur"
+                              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                               onError={(e) => { const target = e.target as HTMLImageElement; target.src = '/memories/20230212_222942.jpg'; }} />
                           </div>
                         </motion.div>

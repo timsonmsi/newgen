@@ -206,6 +206,8 @@ export function GirlIntro({ girl, onComplete }: GirlIntroProps) {
                 fill
                 className="object-cover"
                 sizes="224px"
+                priority
+                quality={90}
               />
             </div>
           </motion.div>
