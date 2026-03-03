@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { POLAROID_ROWS, VIDEOS } from '@/components/shared/UnityPage';
 
-export function PreloadAssets() {
-  const [loaded, setLoaded] = useState(false);
+// Global cache for avatars
+export const avatarCache = new Map<string, string>();
 
+export function PreloadAssets() {
   useEffect(() => {
-    // Priority 1: Preload avatars FIRST (critical for GirlIntro pages)
+    // Priority 1: Preload avatars FIRST and cache in memory
     const preloadAvatars = () => {
       const avatars = ['alyok', 'sabinina', 'nazken', 'molya', 'zhansiko', 'oliyash', 'ardashon'];
       console.log('🎯 Starting avatar preload...');
@@ -17,7 +18,17 @@ export function PreloadAssets() {
           const img = new Image();
           img.src = `/avatars/${avatar}.webp`;
           img.onload = () => {
-            console.log(`✅ Avatar loaded: ${avatar}`);
+            // Convert to data URL for instant in-memory access
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(img, 0, 0);
+              const dataUrl = canvas.toDataURL('image/webp');
+              avatarCache.set(avatar, dataUrl);
+              console.log(`✅ Avatar cached in memory: ${avatar}`);
+            }
             resolve(true);
           };
           img.onerror = () => {
@@ -29,7 +40,7 @@ export function PreloadAssets() {
 
       Promise.all(avatarPromises).then((results) => {
         const success = results.filter(r => r).length;
-        console.log(`✅ ${success}/${avatars.length} avatars preloaded successfully`);
+        console.log(`✅ ${success}/${avatars.length} avatars preloaded and cached`);
       });
     };
 
@@ -115,8 +126,6 @@ export function PreloadAssets() {
     setTimeout(() => {
       preloadVideos();  // Full videos last (after photos done)
     }, 1000);
-
-    setLoaded(true);
   }, []);
 
   // This component doesn't render anything visible

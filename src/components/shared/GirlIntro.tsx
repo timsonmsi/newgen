@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Sparkles, Play } from 'lucide-react';
+import { avatarCache } from './PreloadAssets';
 
 interface GirlIntroProps {
   girl: {
@@ -13,6 +14,8 @@ interface GirlIntroProps {
 }
 
 export function GirlIntro({ girl, onComplete }: GirlIntroProps) {
+  // Use cached avatar if available, otherwise use file path
+  const avatarSrc = avatarCache.get(girl.id) || `/avatars/${girl.id}.webp`;
   // Generate particles in rings AROUND the avatar (not behind it)
   const particles = Array.from({ length: 60 }).map((_, i) => {
     // Place particles in outer rings only
@@ -200,7 +203,7 @@ export function GirlIntro({ girl, onComplete }: GirlIntroProps) {
             {/* Inner frame with BLACK background to block any particles */}
             <div className="absolute inset-1 rounded-full overflow-hidden bg-black">
               <img
-                src={`/avatars/${girl.id}.webp`}
+                src={avatarSrc}
                 alt={girl.name}
                 className="w-full h-full object-cover"
               />

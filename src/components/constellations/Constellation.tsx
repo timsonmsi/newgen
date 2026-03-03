@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Star as StarIcon, Sparkles } from "lucide-react";
+import { avatarCache } from "@/components/shared/PreloadAssets";
 
 export interface Girl {
   id: string;
@@ -175,7 +176,7 @@ export function Constellation({ visited, onSelect, onUnity }: Props) {
               >
                 <div className="relative w-32 h-32" style={{ boxShadow: `0 0 40px ${girl.color}` }}>
                   <img
-                    src={`/avatars/${girl.id}.webp`}
+                    src={avatarCache.get(girl.id) || `/avatars/${girl.id}.webp`}
                     alt={girl.name}
                     className="w-full h-full object-cover rounded-full"
                   />
