@@ -10,6 +10,8 @@ export function PreloadAssets() {
     // Priority 1: Preload avatars FIRST (critical for GirlIntro pages)
     const preloadAvatars = () => {
       const avatars = ['alyok', 'sabinina', 'nazken', 'molya', 'zhansiko', 'oliyash', 'ardashon'];
+      console.log('🎯 Starting avatar preload...');
+      
       const avatarPromises = avatars.map(avatar => {
         return new Promise((resolve) => {
           const img = new Image();
@@ -25,13 +27,15 @@ export function PreloadAssets() {
         });
       });
 
-      Promise.all(avatarPromises).then(() => {
-        console.log('✅ All avatars preloaded');
+      Promise.all(avatarPromises).then((results) => {
+        const success = results.filter(r => r).length;
+        console.log(`✅ ${success}/${avatars.length} avatars preloaded successfully`);
       });
     };
 
     // Priority 2: Preload all images (including full-size for popup)
     const preloadImages = () => {
+      console.log('📸 Starting memories preload...');
       const imagePromises = POLAROID_ROWS.flatMap(row =>
         row.map(polaroid => {
           return new Promise((resolve) => {
@@ -43,20 +47,22 @@ export function PreloadAssets() {
         })
       );
 
-      Promise.all(imagePromises).then(() => {
-        console.log('✅ All memories preloaded');
+      Promise.all(imagePromises).then((results) => {
+        const success = results.filter(r => r).length;
+        console.log(`✅ ${success}/${POLAROID_ROWS.flat().length} memories preloaded`);
       });
     };
 
     // Priority 3: Preload videos (full files for instant playback)
     const preloadVideos = () => {
+      console.log('🎬 Starting video preload...');
       const videoPromises = VIDEOS.map(video => {
         return new Promise((resolve) => {
           const videoEl = document.createElement('video');
           videoEl.preload = 'auto';  // Preload entire video
           videoEl.src = video.src;
           videoEl.onloadeddata = () => {
-            console.log(`✅ Video loaded: ${video.src}`);
+            console.log(`✅ Video loaded: ${video.src.split('/').pop()}`);
             resolve(true);
           };
           videoEl.onerror = () => {
@@ -66,19 +72,20 @@ export function PreloadAssets() {
         });
       });
 
-      Promise.all(videoPromises).then(() => {
-        console.log('✅ All videos preloaded');
+      Promise.all(videoPromises).then((results) => {
+        const success = results.filter(r => r).length;
+        console.log(`✅ ${success}/${VIDEOS.length} videos preloaded`);
       });
     };
 
-    // Start preloading immediately
+    // Start preloading IMMEDIATELY - no delay for avatars
     preloadAvatars();
     
     // Start other preloads after a tiny delay (don't block avatar loading)
     setTimeout(() => {
       preloadImages();
       preloadVideos();
-    }, 500);
+    }, 300);
 
     setLoaded(true);
   }, []);

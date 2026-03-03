@@ -256,6 +256,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                 onLoadedMetadata={handleLoadedMetadata}
                 onEnded={handleVideoEnded}
                 autoPlay
+                preload="auto"
               />
               
               {/* Controls */}
@@ -458,7 +459,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                       {/* Video preview (muted, looping, autoplay) */}
                       <video
                         src={video.src}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-fill"
                         muted
                         loop
                         playsInline
