@@ -18,7 +18,7 @@ const GIRLS = [
 ];
 
 // Use all uploaded videos from Cloudinary
-const VIDEOS = ALL_VIDEOS;
+export const VIDEOS = ALL_VIDEOS;
 
 const CONFETTI = Array.from({ length: 80 }, (_, i) => ({
   id: i, x: Math.random() * 100, color: GIRLS[i % GIRLS.length].color,
