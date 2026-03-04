@@ -42,27 +42,6 @@ export const POLAROID_ROWS = [
   [{ id: 55, src: "/memories/photo_2026-03-02 18.11.20.jpeg", rotation: -2 }, { id: 56, src: "/memories/photo_2026-03-03 17.38.55.jpeg", rotation: 4 }, { id: 57, src: "/memories/Screenshot 2026-03-02 at 18.25.01.png", rotation: -3 }, { id: 58, src: "/memories/Screenshot 2026-03-02 at 18.25.51.png", rotation: 3 }, { id: 59, src: "/memories/YBS - Vogue (God of Music).png", rotation: -5 }],
 ];
 
-export const VIDEOS = [
-  { id: 1, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542534/newgen-videos/newgen/DJI_20240330191842_0045_D.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542534/newgen-videos/newgen/DJI_20240330191842_0045_D.jpg", rotation: 11 },
-  { id: 2, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542538/newgen-videos/newgen/DJI_20240330191842_0045_D_2.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542538/newgen-videos/newgen/DJI_20240330191842_0045_D_2.jpg", rotation: -8 },
-  { id: 3, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772544618/newgen-videos/pnct6twz8m3bf6fcdq3l.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772544618/newgen-videos/pnct6twz8m3bf6fcdq3l.jpg", rotation: 14 },
-  { id: 4, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542541/newgen-videos/newgen/IMG_1961.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542541/newgen-videos/newgen/IMG_1961.jpg", rotation: -5 },
-  { id: 5, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772544621/newgen-videos/kjvlb2iwvcmah2tt6rut.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772544621/newgen-videos/kjvlb2iwvcmah2tt6rut.jpg", rotation: 9 },
-  { id: 6, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772544625/newgen-videos/qmj15k5a2pzlq3prgddm.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772544625/newgen-videos/qmj15k5a2pzlq3prgddm.jpg", rotation: -13 },
-  { id: 7, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772544627/newgen-videos/bpjnrrtwqs7wvwkgyz5n.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772544627/newgen-videos/bpjnrrtwqs7wvwkgyz5n.jpg", rotation: 6 },
-  { id: 8, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542552/newgen-videos/newgen/IMG_8345.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542552/newgen-videos/newgen/IMG_8345.jpg", rotation: -10 },
-  { id: 9, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542553/newgen-videos/newgen/IMG_8346.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542553/newgen-videos/newgen/IMG_8346.jpg", rotation: 15 },
-  { id: 10, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542555/newgen-videos/newgen/IMG_8347.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542555/newgen-videos/newgen/IMG_8347.jpg", rotation: -3 },
-  { id: 11, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542557/newgen-videos/newgen/IMG_8348.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542557/newgen-videos/newgen/IMG_8348.jpg", rotation: 12 },
-  { id: 12, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542558/newgen-videos/newgen/IMG_8350.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542558/newgen-videos/newgen/IMG_8350.jpg", rotation: -7 },
-  { id: 13, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542560/newgen-videos/newgen/IMG_8351.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542560/newgen-videos/newgen/IMG_8351.jpg", rotation: 4 },
-  { id: 14, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542562/newgen-videos/newgen/IMG_8352.mp4", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542562/newgen-videos/newgen/IMG_8352.jpg", rotation: -14 },
-  { id: 15, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772542563/newgen-videos/newgen/IMG_8542.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772542563/newgen-videos/newgen/IMG_8542.jpg", rotation: 8 },
-  { id: 16, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772543398/newgen-videos/v5legsdbwrnwaovmbkbd.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772543398/newgen-videos/v5legsdbwrnwaovmbkbd.jpg", rotation: 12 },
-  { id: 17, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772543407/newgen-videos/fybgmwm5lxna242cmcjb.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772543407/newgen-videos/fybgmwm5lxna242cmcjb.jpg", rotation: -5 },
-  { id: 18, src: "https://res.cloudinary.com/dfigirqsd/video/upload/v1772543412/newgen-videos/aoir21nbt8nrv3rjod5z.mov", poster: "https://res.cloudinary.com/dfigirqsd/video/upload/c_fill,w_280,h_200/v1772543412/newgen-videos/aoir21nbt8nrv3rjod5z.jpg", rotation: 9 },
-];
-
 export function UnityPage({ onBack }: { onBack: () => void }) {
   const [show, setShow] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
