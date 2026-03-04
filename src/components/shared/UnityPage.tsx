@@ -5,6 +5,7 @@ import Image from "next/image";
 import { switchTrack, muteMusic, unmuteMusic } from "./MusicPlayer";
 import { Play, Pause, Volume2, VolumeX, X } from "lucide-react";
 import { memoryCache } from './PreloadAssets';
+import ALL_VIDEOS from '@/lib/all-videos.json';
 
 const GIRLS = [
   { name: "Alyok",    color: "#ff007f", emoji: "💗" },
@@ -15,6 +16,9 @@ const GIRLS = [
   { name: "Oliyash",  color: "#00ffa3", emoji: "💚" },
   { name: "Ardashon", color: "#ff8c00", emoji: "🧡" },
 ];
+
+// Use all uploaded videos from Cloudinary
+const VIDEOS = ALL_VIDEOS;
 
 const CONFETTI = Array.from({ length: 80 }, (_, i) => ({
   id: i, x: Math.random() * 100, color: GIRLS[i % GIRLS.length].color,
@@ -433,40 +437,40 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
           >
             <h3 className="text-xl font-serif tracking-[0.3em] uppercase text-white/60 mb-8 text-center">Video Memories</h3>
 
-            {/* Video grid - 4 per row with film roll frame */}
-            <div className="grid grid-cols-4 gap-4 justify-items-center">
+            {/* Video grid - 7 per row to fit all 77 videos */}
+            <div className="grid grid-cols-7 gap-2 justify-items-center">
               {VIDEOS.map((video, index) => (
                 <motion.div
                   key={video.id}
                   initial={{ opacity: 0, y: 50, rotate: 0 }}
-                  animate={{ opacity: 1, y: 0, rotate: video.rotation }}
-                  transition={{ delay: 3.8 + (index * 0.1), duration: 0.6, type: "spring", stiffness: 120 }}
+                  animate={{ opacity: 1, y: 0, rotate: video.rotation || 0 }}
+                  transition={{ delay: 3.8 + (index * 0.05), duration: 0.6, type: "spring", stiffness: 120 }}
                   className="relative group cursor-pointer"
                   onClick={() => handleVideoClick(video)}
                   style={{ transformOrigin: 'top center' }}
                 >
                   {/* Film roll frame container */}
-                  <div className="relative bg-black shadow-2xl" style={{ width: '280px', height: '200px' }}>
-                    {/* Sprocket holes top - WHITE, larger (h-5) */}
-                    <div className="absolute top-0 left-0 right-0 h-5 bg-black flex justify-around items-center px-2">
-                      {Array.from({ length: 14 }).map((_, i) => (
-                        <div key={i} className="w-2 h-2 bg-white rounded-sm" />
+                  <div className="relative bg-black shadow-2xl" style={{ width: '200px', height: '150px' }}>
+                    {/* Sprocket holes top - WHITE */}
+                    <div className="absolute top-0 left-0 right-0 h-4 bg-black flex justify-around items-center px-1">
+                      {Array.from({ length: 10 }).map((_, i) => (
+                        <div key={i} className="w-1.5 h-1.5 bg-white rounded-sm" />
                       ))}
                     </div>
 
-                    {/* Sprocket holes bottom - WHITE, larger (h-5) */}
-                    <div className="absolute bottom-0 left-0 right-0 h-5 bg-black flex justify-around items-center px-2">
-                      {Array.from({ length: 14 }).map((_, i) => (
-                        <div key={i} className="w-2 h-2 bg-white rounded-sm" />
+                    {/* Sprocket holes bottom - WHITE */}
+                    <div className="absolute bottom-0 left-0 right-0 h-4 bg-black flex justify-around items-center px-1">
+                      {Array.from({ length: 10 }).map((_, i) => (
+                        <div key={i} className="w-1.5 h-1.5 bg-white rounded-sm" />
                       ))}
                     </div>
 
                     {/* Side borders - thin black frames on left and right */}
-                    <div className="absolute top-5 bottom-5 left-0 w-1 bg-black" />
-                    <div className="absolute top-5 bottom-5 right-0 w-1 bg-black" />
+                    <div className="absolute top-4 bottom-4 left-0 w-0.5 bg-black" />
+                    <div className="absolute top-4 bottom-4 right-0 w-0.5 bg-black" />
 
                     {/* Video container - inset from sprocket holes and side borders */}
-                    <div className="absolute top-5 bottom-5 left-1 right-1 bg-black overflow-hidden">
+                    <div className="absolute top-4 bottom-4 left-0.5 right-0.5 bg-black overflow-hidden">
                       <video
                         src={video.src}
                         poster={video.poster}
@@ -479,12 +483,12 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         loop
                         playsInline
                         autoPlay
-                        preload="auto"
+                        preload="metadata"
                         onLoadedData={() => {
-                          console.log(`✅ Video loaded: ${video.src.split('/').pop()}`);
+                          console.log(`✅ Video loaded: ${video.original}`);
                         }}
                         onError={(e) => {
-                          console.error(`❌ Video failed: ${video.src}`, e);
+                          console.error(`❌ Video failed: ${video.original}`, e);
                         }}
                       />
                       
@@ -493,9 +497,9 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                         <motion.div
                           initial={{ scale: 0.8 }}
                           whileHover={{ scale: 1.1 }}
-                          className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+                          className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
                         >
-                          <Play size={28} className="fill-white text-white ml-1" />
+                          <Play size={20} className="fill-white text-white" />
                         </motion.div>
                       </div>
                     </div>
