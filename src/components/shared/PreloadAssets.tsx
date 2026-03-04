@@ -112,11 +112,10 @@ export function PreloadAssets() {
       });
     };
 
-    // STEP 7: Video previews start loading (Cloudinary auto-optimizes)
+    // STEP 7: Videos stream on-demand (no preload to save bandwidth)
     const step7_PreloadVideoPreviews = () => {
-      console.log('🎬 STEP 7: Video previews (Cloudinary CDN)...');
-      console.log('✅ Videos will stream on-demand from Cloudinary CDN');
-      console.log('🎉 All assets preloaded!\n');
+      console.log('🎬 STEP 7: Videos (stream on-demand)...');
+      console.log('✅ Videos will stream from Cloudinary when clicked\n');
     };
 
     // Start the sequence
