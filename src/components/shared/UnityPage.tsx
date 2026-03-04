@@ -249,7 +249,8 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                 onLoadedMetadata={handleLoadedMetadata}
                 onEnded={handleVideoEnded}
                 autoPlay
-                preload="auto"
+                preload="metadata"
+                controls
               />
               
               {/* Controls */}
