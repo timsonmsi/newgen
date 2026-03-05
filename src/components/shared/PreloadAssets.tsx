@@ -78,37 +78,29 @@ export function PreloadAssets() {
       });
     };
 
-    // STEP 5: Memories start preloading
+    // STEP 5: Memories start preloading (browser cache only)
     const step5_PreloadMemories = () => {
       console.log('📸 STEP 5: Memories start preloading...');
       const allMemories = POLAROID_ROWS.flat();
-      
-      const memoryPromises = allMemories.map(polaroid => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.src = polaroid.src;
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext('2d');
-            if (ctx) {
-              ctx.drawImage(img, 0, 0);
-              const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-              memoryCache.set(polaroid.src, dataUrl);
-            }
-            resolve(true);
-          };
-          img.onerror = () => resolve(false);
-        });
-      });
+      let loaded = 0;
 
-      Promise.all(memoryPromises).then((results) => {
-        const success = results.filter(r => r).length;
-        console.log(`✅ STEP 6: ${success}/${allMemories.length} memories cached`);
-        
-        // STEP 7: Video previews start loading
-        step7_PreloadVideoPreviews();
+      allMemories.forEach(polaroid => {
+        const img = new Image();
+        img.src = polaroid.src;
+        img.onload = () => {
+          loaded++;
+          if (loaded === allMemories.length) {
+            console.log(`✅ STEP 6: ${loaded}/${allMemories.length} memories preloaded`);
+            step7_PreloadVideoPreviews();
+          }
+        };
+        img.onerror = () => {
+          loaded++;
+          console.warn(`⚠️ Memory failed: ${polaroid.src}`);
+          if (loaded === allMemories.length) {
+            step7_PreloadVideoPreviews();
+          }
+        };
       });
     };
 

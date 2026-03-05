@@ -190,20 +190,11 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
               className="relative max-w-4xl max-h-[90vh] p-4"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Use cached image if available, otherwise load from URL */}
-              {memoryCache.has(selectedPhoto) ? (
-                <img
-                  src={memoryCache.get(selectedPhoto)}
-                  alt="Memory"
-                  className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                />
-              ) : (
-                <img
-                  src={selectedPhoto}
-                  alt="Memory"
-                  className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                />
-              )}
+              <img
+                src={selectedPhoto}
+                alt="Memory"
+                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              />
               <button
                 onClick={() => setSelectedPhoto(null)}
                 className="absolute top-6 right-6 text-white/80 hover:text-white text-4xl font-bold"
