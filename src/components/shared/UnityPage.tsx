@@ -202,6 +202,11 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                   src={selectedPhoto}
                   alt="Memory"
                   className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                  onError={(e) => {
+                    console.error('Failed to load full-size photo:', selectedPhoto);
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/memories/20230212_222942.jpg'; // Fallback image
+                  }}
                 />
               )}
               <button
