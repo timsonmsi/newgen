@@ -493,7 +493,7 @@ function StageTribute({ onBack }: { onBack: () => void }) {
           Even if you were born Gen-Z the Boomer blood is in your veins haha. You can listen to k-pop, q-pop, popop, but what no playlist can ever capture is what you do on stage: the way your face
           tells a thousand stories without a single word. You are the{" "}
           <span style={{ color: COLOR }} className="font-semibold">Emotions Queen</span> —
-          and no algorithm could ever generate what you have naturally.
+          and no AI could ever generate what you have naturally.
         </p>
         <div className="w-full h-px mt-8 mb-6 bg-gradient-to-r from-transparent via-[#ff007f] to-transparent" />
         <p className="text-white/40 text-sm italic mb-6">Happy Women's Day, Alyok 💗 — w/l Timson</p>

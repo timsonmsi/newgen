@@ -269,10 +269,10 @@ function StageMemoryLane({ onDone }: { onDone: () => void }) {
   const allRevealed = revealed.length >= 4;
 
   const memories = [
-    { id: 0, year: "2021", title: "The Beginning", text: "When you first joined us, shy and nervous, but with fire in your eyes. We knew you were special.", emoji: "🌟" },
-    { id: 1, year: "2022", title: "First Dance", text: "The moment you stepped on stage and transformed. The shy intern was gone, a star was born.", emoji: "💃" },
-    { id: 2, year: "2023", title: "Taking the Lead", text: "You became Media Lead. From following to leading. From learning to teaching. Pure growth.", emoji: "👑" },
-    { id: 3, year: "2024", title: "Our Little Sister", text: "More than a teammate. Family. You became the little sister we all needed.", emoji: "💛" },
+    { id: 0, label: "Chapter 1", title: "The Beginning", text: "When you first joined us, shy and nervous, but with fire in your eyes. We knew you were special.", emoji: "🌟" },
+    { id: 1, label: "Chapter 2", title: "First Dance", text: "The moment you stepped on stage and transformed. The shy intern was gone, a star was born.", emoji: "💃" },
+    { id: 2, label: "Chapter 3", title: "Taking the Lead", text: "You became Media Lead. From following to leading. From learning to teaching. Pure growth.", emoji: "👑" },
+    { id: 3, label: "Chapter 4", title: "Our Little Sister", text: "More than a teammate. Family. You became the little sister we all needed.", emoji: "💛" },
   ];
 
   const revealMemory = (id: number) => {
@@ -323,7 +323,7 @@ function StageMemoryLane({ onDone }: { onDone: () => void }) {
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{memory.emoji}</span>
                     <div className="text-left">
-                      <p className="text-yellow-500 font-bold">{memory.year}</p>
+                      <p className="text-yellow-500 font-bold">{memory.label}</p>
                       {isRevealed ? (
                         <>
                           <p className="text-white font-semibold">{memory.title}</p>
