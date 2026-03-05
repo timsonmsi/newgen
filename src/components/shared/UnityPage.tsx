@@ -449,7 +449,7 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
 
                     {/* Video container - inset from sprocket holes and side borders */}
                     <div className="absolute top-4 bottom-4 left-0.5 right-0.5 bg-black overflow-hidden">
-                      {/* Show poster image, load video on hover */}
+                      {/* Video preview (muted, looping, autoplay) */}
                       <video
                         src={video.src}
                         poster={video.poster}
@@ -459,7 +459,16 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                           objectPosition: 'center',
                         }}
                         muted
-                        preload="none"
+                        loop
+                        playsInline
+                        autoPlay
+                        preload="metadata"
+                        onLoadedData={() => {
+                          console.log(`✅ Video loaded: ${video.original}`);
+                        }}
+                        onError={(e) => {
+                          console.error(`❌ Video failed: ${video.original}`, e);
+                        }}
                       />
                       
                       {/* Play overlay on hover */}
