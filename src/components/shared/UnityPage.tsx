@@ -1,7 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef, useCallback } from "react";
-import Image from "next/image";
 import { switchTrack, muteMusic, unmuteMusic } from "./MusicPlayer";
 import { Play, Pause, Volume2, VolumeX, X } from "lucide-react";
 import { memoryCache } from './PreloadAssets';
@@ -199,14 +198,10 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                   className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
                 />
               ) : (
-                <Image
+                <img
                   src={selectedPhoto}
                   alt="Memory"
-                  width={1200}
-                  height={1200}
                   className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                  quality={90}
-                  priority
                 />
               )}
               <button
@@ -383,18 +378,16 @@ export function UnityPage({ onBack }: { onBack: () => void }) {
                           onClick={() => setSelectedPhoto(polaroid.src)}
                         >
                           <div className="bg-gray-100 aspect-square overflow-hidden relative">
-                            <Image 
-                              src={polaroid.src} 
-                              alt={`Memory ${polaroid.id}`} 
-                              fill 
-                              className="object-cover" 
-                              sizes="140px"
+                            <img
+                              src={polaroid.src}
+                              alt={`Memory ${polaroid.id}`}
+                              className="w-full h-full object-cover"
                               loading="lazy"
-                              quality={85}
-                              onError={(e) => { 
-                                const target = e.target as HTMLImageElement; 
-                                console.log('Image failed to load:', polaroid.src);
-                              }} 
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                console.error('Failed to load:', polaroid.src);
+                                target.style.display = 'none';
+                              }}
                             />
                           </div>
                         </motion.div>
